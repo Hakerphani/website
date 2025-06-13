@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechTrendz - E-Commerce Store</title>
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 font-sans">
+  <!-- Header: Navigation bar with logo and cart -->
+  <!-- Box Description: Creates a fixed navbar with a logo, cart icon, and cart item count for easy navigation -->
+  <header class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg fixed w-full z-10">
+    <nav class="container mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="text-2xl font-bold">TechTrendz</h1>
+      <div class="cart-icon flex items-center cursor-pointer" onclick="toggleCart()">
+        🛒 <span id="cartCount" class="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-sm">0</span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content: Product listing -->
+  <!-- Box Description: Displays a grid of product cards with images, names, prices, and add-to-cart buttons -->
+  <main class="container mx-auto mt-20 py-8">
+    <section class="products grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Product 1 -->
+      <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+        <img src="https://via.placeholder.com/300x200?text=Headphones" alt="Wireless Headphones" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h3 class="text-lg font-semibold">Wireless Headphones</h3>
+          <p class="text-gray-600">$49.99</p>
+          <button class="add-to-cart mt-2 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600" data-id="1" data-name="Wireless Headphones" data-price="49.99">Add to Cart</button>
+        </div>
+      </div>
+      <!-- Product 2 -->
+      <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+        <img src="https://via.placeholder.com/300x200?text=Smartwatch" alt="Smartwatch" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h3 class="text-lg font-semibold">Smartwatch</h3>
+          <p class="text-gray-600">$99.99</p>
+          <button class="add-to-cart mt-2 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600" data-id="2" data-name="Smartwatch" data-price="99.99">Add to Cart</button>
+        </div>
+      </div>
+      <!-- Product 3 -->
+      <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+        <img src="https://via.placeholder.com/300x200?text=Bluetooth+Speaker" alt="Bluetooth Speaker" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h3 class="text-lg font-semibold">Bluetooth Speaker</h3>
+          <p class="text-gray-600">$29.99</p>
+          <button class="add-to-cart mt-2 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600" data-id="3" data-name="Bluetooth Speaker" data-price="29.99">Add to Cart</button>
+        </div>
+      </div>
+      <!-- Product 4 -->
+      <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+        <img src="https://via.placeholder.com/300x200?text=Power+Bank" alt="Power Bank" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h3 class="text-lg font-semibold">Power Bank</h3>
+          <p class="text-gray-600">$19.99</p>
+          <button class="add-to-cart mt-2 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600" data-id="4" data-name="Power Bank" data-price="19.99">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cart Modal: Displays cart contents -->
+  <!-- Box Description: A hidden modal showing cart items, quantities, total, and a checkout button -->
+  <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-20">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+      <h2 class="text-xl font-bold mb-4">Your Cart</h2>
+      <div id="cartItems" class="mb-4"></div>
+      <p class="font-semibold">Total: $<span id="cartTotal">0.00</span></p>
+      <button id="checkoutBtn" class="mt-4 w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">Proceed to Checkout</button>
+      <button onclick="toggleCart()" class="mt-2 w-full bg-gray-500 text-white py-2 rounded hover:bg-gray-600">Close</button>
+    </div>
+  </div>
+
+  <!-- Checkout Modal: Mock checkout form -->
+  <!-- Box Description: A hidden modal with a form for user details, simulating a checkout process -->
+  <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-20">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+      <h2 class="text-xl font-bold mb-4">Checkout</h2>
+      <form id="checkoutForm">
+        <div class="mb-4">
+          <label class="block text-gray-700">Full Name</label>
+          <input type="text" class="w-full p-2 border rounded" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700">Email</label>
+          <input type="email" class="w-full p-2 border rounded" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700">Address</label>
+          <input type="text" class="w-full p-2 border rounded" required>
+        </div>
+        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Place Order</button>
+      </form>
+      <button onclick="toggleCheckout()" class="mt-2 w-full bg-gray-500 text-white py-2 rounded hover:bg-gray-600">Close</button>
+    </div>
+  </div>
+
+  <!-- Footer: Contact info -->
+  <!-- Box Description: A simple footer with contact details and links for credibility -->
+  <footer class="bg-gray-800 text-white text-center py-4">
+    <p>&copy; 2025 TechTrendz. Contact: support@techtrendz.com</p>
+    <p><a href="#" class="underline">Privacy Policy</a> | <a href="#" class="underline">Terms of Service</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
